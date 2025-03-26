@@ -10,6 +10,8 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import AuthProvider from './provider/AuthProvider';
 import Login from './pages/Login';
+import Terms from './pages/Terms';
+import About from './pages/About';
 
 
 
@@ -22,6 +24,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>
+      },
+      {
+        path: "/about",
+        element: <About></About>
+      },
+      {
+        path: "/terms",
+        element: <Terms></Terms>
       },
       {
         path:"/register",

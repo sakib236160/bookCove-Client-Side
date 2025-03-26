@@ -23,7 +23,7 @@ const Navbar = () => {
         <section className="mx-auto flex w-11/12 max-w-screen-xl items-center justify-between py-4">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <img src="/bookCove.png" className="h-8" alt="BookNest Logo" />
+            <img src="/bookCove.png" className="h-8" alt="BookCove Logo" />
             <span className="text-2xl font-semibold">BookCove</span>
           </div>
 

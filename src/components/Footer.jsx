@@ -8,24 +8,24 @@ export default function Footer() {
         <div className="flex flex-col-reverse items-center justify-between gap-4 py-4 sm:flex-row">
           <div>
             <p>
-              &copy; {new Date().getFullYear()} BookNest. All rights reserved.
+              &copy; {new Date().getFullYear()} BookCove. All rights reserved.
             </p>
           </div>
           <div className="flex gap-4">
             <IoMail
-              title="info@booknest.com"
+              title="info@BookCove.com"
               className="cursor-pointer hover:text-red-500"
             />
             <FaTwitter
-              title="@booknest"
+              title="@BookCove"
               className="cursor-pointer hover:text-blue-400"
             />
             <FaFacebook
-              title="@booknest"
+              title="@BookCove"
               className="cursor-pointer hover:text-blue-500"
             />
             <FaLinkedin
-              title="@booknest"
+              title="@BookCove"
               className="cursor-pointer hover:text-blue-600"
             />
           </div>
