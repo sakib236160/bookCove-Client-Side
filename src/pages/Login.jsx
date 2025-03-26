@@ -1,82 +1,108 @@
-// import { useState } from "react";
-
-import { useContext } from "react";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { toast } from "react-hot-toast";
 import AuthContext from "../provider/AuthContext";
 
 const Login = () => {
-    //  const [error, setError] = useState("");
-    const {userLogin} = useContext(AuthContext);
+  const { userLogin } = useContext(AuthContext);
+  const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const email = form.email.value;
-        const password = form.password.value;
-    
-        // Password validation: কমপক্ষে ৬ ডিজিট + অন্তত ১টা বড় হাতের অক্ষর
-        const passwordRegex = /^(?=.*[A-Z]).{6,}$/;
-        if (!passwordRegex.test(password)) {
-          setError(
-            "পাসওয়ার্ড কমপক্ষে ৬ ডিজিট হতে হবে এবং অন্তত ১টি বড় হাতের অক্ষর থাকতে হবে!"
-          );
-          return;
-        }
-        // সব ঠিক থাকলে কনসোলে দেখাবে
-        console.log("Login Successfully:", email, password);
-        // setError(""); // এরর ক্লিয়ার করবে
-        // ইনপুট ফিল্ড ক্লিয়ার করবে
-        form.reset();
-    
-        console.log(email,password);
-        userLogin(email, password)
-          .then((result) => {
-            console.log(result.user);
-          })
-          .catch((error) => {
-            console.log(error.message);
-          });
-      };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = new FormData(e.target);
+    const email = form.get("email");
+    const password = form.get("password");
 
+    // Password validation regex (same as in Register page)
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+      setError("Invalid Password! Password must have at least 6 characters with both uppercase and lowercase letters.");
+      toast.error("Invalid Password! Follow the rules.");
+      return;
+    }
+
+    // Log in the user
+    userLogin(email, password)
+      .then((result) => {
+        toast.success("Login Successful!");
+        navigate("/"); // Navigate to homepage after successful login
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setError(error.message);
+        toast.error(`${error.message}`);
+      });
+  };
 
   return (
-    <div className="hero bg-base-200 min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        {/* <div className="text-center lg:text-left w-96">
-          <Lottie animationData={registerLottieData}></Lottie>
-        </div> */}
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <h1 className="ml-8 mt-4 text-5xl font-bold">
-            {" "}
-            <span className="text-indigo-500">Login</span> now!
-          </h1>
-          <form onSubmit={handleLogin} className="card-body">
-            <fieldset className="fieldset">
-              <label className="fieldset-label">Email</label>
+    <section className="mx-auto w-11/12 max-w-screen-xl py-16">
+      <div className="mx-auto flex max-w-[500px] items-center justify-center">
+        <div className="w-full rounded-lg p-8 shadow-lg">
+          <h1 className="pb-8 text-center text-3xl font-semibold">Login</h1>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <label htmlFor="email">
+              <p>Email</p>
               <input
                 type="email"
-                className="input"
-                placeholder="Email"
                 name="email"
+                placeholder="Enter Your Email"
+                id="email"
+                className="w-full rounded-lg border p-2"
+                required
               />
-              <label className="fieldset-label">Password</label>
-              <input
-                type="password"
-                className="input"
-                placeholder="Password"
-                name="password"
-              />
-              <div>
-                <a className="link link-hover">Forgot password?</a>
+            </label>
+            <label htmlFor="password">
+              <p>Password</p>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Enter Password"
+                  id="password"
+                  className="w-full rounded-lg border p-2"
+                  required
+                />
+                {showPassword ? (
+                  <FaRegEyeSlash
+                    className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500"
+                    onClick={() => setShowPassword(!showPassword)}
+                  />
+                ) : (
+                  <FaRegEye
+                    className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500"
+                    onClick={() => setShowPassword(!showPassword)}
+                  />
+                )}
               </div>
-              <button className="btn bg-indigo-500 text-white font-semibold mt-4">
-                Login
-              </button>
-            </fieldset>
+            </label>
+
+            {error && (
+              <p className="text-justify text-sm text-red-500">{error}</p>
+            )}
+
+            <button
+              type="submit"
+              className="w-full rounded-lg bg-indigo-500 p-2 font-bold text-white"
+            >
+              Login
+            </button>
           </form>
-          {/* <SocialLogin></SocialLogin> */}
+          <div className="mt-4 flex items-center justify-center">
+            <hr className="h-1 w-full" /> <span className="px-4">or</span>
+            <hr className="h-1 w-full" />
+          </div>
+          <div className="mt-4 text-center">
+            Don't have an account?{" "}
+            <Link to="/register" className="underline">
+              Register
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
