@@ -53,6 +53,14 @@ const Navbar = () => {
             >
               Terms & Conditions
             </NavLink>
+            <NavLink
+              to="/add-book"
+              className={`font-medium text-gray-700 hover:text-blue-500 ${
+                location.pathname === "/terms" ? "text-blue-500 font-bold" : ""
+              }`}
+            >
+              Add Book
+            </NavLink>
           </div>
 
           {/* Login/Register Buttons or User Profile */}

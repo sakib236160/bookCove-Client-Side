@@ -12,6 +12,8 @@ import AuthProvider from './provider/AuthProvider';
 import Login from './pages/Login';
 import Terms from './pages/Terms';
 import About from './pages/About';
+import AddBook from './pages/AddBook';
+import PrivateRoute from './PrivateRoute';
 
 
 
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
       {
         path: "/terms",
         element: <Terms></Terms>
+      },
+      {
+        path: "/add-book",
+        element: (
+          <PrivateRoute>
+            <AddBook></AddBook>
+          </PrivateRoute>
+        ),
       },
       {
         path:"/register",
