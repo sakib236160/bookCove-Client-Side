@@ -14,6 +14,8 @@ import Terms from './pages/Terms';
 import About from './pages/About';
 import AddBook from './pages/AddBook';
 import PrivateRoute from './PrivateRoute';
+import AllBooks from './pages/AllBooks';
+import CategoryBooks from './pages/CategoryBooks';
 
 
 
@@ -34,6 +36,18 @@ const router = createBrowserRouter([
       {
         path: "/terms",
         element: <Terms></Terms>
+      },
+      {
+        path: "/category/:category",
+        element: <CategoryBooks></CategoryBooks>
+      },
+      {
+        path: "/all-book",
+        element: (
+          <PrivateRoute>
+            <AllBooks></AllBooks>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/add-book",
