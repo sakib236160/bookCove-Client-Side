@@ -16,6 +16,7 @@ import AddBook from './pages/AddBook';
 import PrivateRoute from './PrivateRoute';
 import AllBooks from './pages/AllBooks';
 import CategoryBooks from './pages/CategoryBooks';
+import BookDetails from './pages/BookDetails';
 
 
 
@@ -40,6 +41,14 @@ const router = createBrowserRouter([
       {
         path: "/category/:category",
         element: <CategoryBooks></CategoryBooks>
+      },
+      {
+        path: "/book/:id",
+        element: (
+          <PrivateRoute>
+            <BookDetails></BookDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/all-book",

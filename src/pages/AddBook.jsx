@@ -83,7 +83,7 @@ const AddBook = () => {
             </div>
             <div>
               <label htmlFor="quantity" className="mb-2 block font-medium">Quantity</label>
-              <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" min={1} className="w-full rounded-lg border px-4 py-2" required />
+              <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" min={0} className="w-full rounded-lg border px-4 py-2"  />
             </div>
             <div>
               <label htmlFor="rating" className="mb-2 block font-medium">Rating</label>
