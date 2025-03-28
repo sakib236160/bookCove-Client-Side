@@ -69,6 +69,14 @@ const Navbar = () => {
             >
               Add Book
             </NavLink>
+            <NavLink
+              to="/borrowed-books"
+              className={`font-medium text-gray-700 hover:text-blue-500 ${
+                location.pathname === "/terms" ? "text-blue-500 font-bold" : ""
+              }`}
+            >
+              Borrowed Books
+            </NavLink>
             
           </div>
 

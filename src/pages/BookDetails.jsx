@@ -54,6 +54,7 @@ export default function BookDetails() {
       toast.success(data.message);
       setShowModal(false);
       setIsBorrowed(true);
+      navigate("/borrowed-books");
     } catch (error) {
       toast.error("Error borrowing book!");
     }

@@ -17,6 +17,7 @@ import PrivateRoute from './PrivateRoute';
 import AllBooks from './pages/AllBooks';
 import CategoryBooks from './pages/CategoryBooks';
 import BookDetails from './pages/BookDetails';
+import BorrowedBooks from './pages/BorrowedBooks';
 
 
 
@@ -63,6 +64,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddBook></AddBook>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/borrowed-books",
+        element: (
+          <PrivateRoute>
+            <BorrowedBooks></BorrowedBooks>
           </PrivateRoute>
         ),
       },
