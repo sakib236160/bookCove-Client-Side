@@ -81,7 +81,12 @@ export default function BookDetails() {
           <div className="sm:col-span-1 md:col-span-2">
             <h2 className="text-2xl font-semibold">{book?.name}</h2>
             <p className="mb-4">{book?.authorName}</p>
-            <p className="mb-4 inline-block rounded-lg bg-blue-100 px-4 py-1 text-center text-sm font-semibold text-blue-600">
+            <p className={`mb-4 inline-block rounded-lg  px-4 py-1
+                 ${book.category === 'Science Fiction' && 'bg-blue-100 text-blue-600'}
+                        ${book.category === 'Business' && 'bg-blue-100 text-green-600'} 
+                        ${book.category === 'Personal Development' && 'bg-blue-100 text-red-400'} 
+                        ${book.category === 'History' && 'bg-blue-100 text-yellow-500'} 
+             text-center text-sm font-semibold `}>
               {book?.category}
             </p>
             <p className="mb-2">

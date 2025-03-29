@@ -97,7 +97,15 @@ export default function AllBooks() {
                     alt="Book Cover"
                     src={book.image}
                   />
-                  <p className="rounded-lg bg-blue-100 px-4 py-1 text-center text-sm font-semibold text-blue-600">
+                  {/* <p className="rounded-lg bg-blue-100 px-4 py-1 text-center text-sm font-semibold text-blue-600">
+                    {book.category}
+                  </p> */}
+                  <p className={`rounded-lg  px-4 py-1
+                        ${book.category === 'Science Fiction' && 'bg-blue-100 text-blue-600'}
+                        ${book.category === 'Business' && 'bg-blue-100 text-green-600'} 
+                        ${book.category === 'Personal Development' && 'bg-blue-100 text-red-400'} 
+                        ${book.category === 'History' && 'bg-blue-100 text-yellow-500'} 
+                     text-center text-sm font-semibold`}>
                     {book.category}
                   </p>
                   <div className="flex-1">
@@ -162,9 +170,14 @@ export default function AllBooks() {
                       <td className="px-4 py-2">{book.name}</td>
                       <td className="px-4 py-2">{book.authorName}</td>
                       <td className="px-4 py-2">
-                        <p className="rounded-lg bg-blue-100 px-3 py-1 text-center text-sm font-semibold text-blue-600">
-                          {book.category}
-                        </p>
+                      <p className={`rounded-lg  px-4 py-1
+                        ${book.category === 'Science Fiction' && 'bg-blue-100 text-blue-600'}
+                        ${book.category === 'Business' && 'bg-blue-100 text-green-600'} 
+                        ${book.category === 'Personal Development' && 'bg-blue-100 text-red-400'} 
+                        ${book.category === 'History' && 'bg-blue-100 text-yellow-500'} 
+                     text-center text-sm font-semibold`}>
+                    {book.category}
+                  </p>
                       </td>
                       <td className="px-4 py-2">{book.quantity}</td>
                       <td className="px-4 py-2">
