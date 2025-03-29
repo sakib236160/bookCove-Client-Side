@@ -30,7 +30,7 @@ const Register = () => {
     createNewUser(email, password, name, photoUrl)
       .then(() => {
         toast.success("Registration Successful!");
-        navigate("/"); // Navigate to homepage after successful registration
+        navigate("/"); 
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -45,7 +45,7 @@ const Register = () => {
         const user = result.user;
         setUser(user);
         toast.success("Login Successful!");
-        navigate("/"); // Navigate to homepage after Google login
+        navigate("/");
       })
       .catch((error) => {
         console.error("Error:", error);

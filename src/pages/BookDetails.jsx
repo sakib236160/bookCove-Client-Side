@@ -81,12 +81,8 @@ export default function BookDetails() {
           <div className="sm:col-span-1 md:col-span-2">
             <h2 className="text-2xl font-semibold">{book?.name}</h2>
             <p className="mb-4">{book?.authorName}</p>
-            <p className={`mb-4 inline-block rounded-lg  px-4 py-1
-                 ${book.category === 'Science Fiction' && 'bg-blue-100 text-blue-600'}
-                        ${book.category === 'Business' && 'bg-blue-100 text-green-600'} 
-                        ${book.category === 'Personal Development' && 'bg-blue-100 text-red-400'} 
-                        ${book.category === 'History' && 'bg-blue-100 text-yellow-500'} 
-             text-center text-sm font-semibold `}>
+            <p className={`mb-4 inline-block rounded-lg px-4 py-1
+                 ${book.category === 'Science Fiction' && 'bg-blue-100 text-blue-600'}`}>
               {book?.category}
             </p>
             <p className="mb-2">
@@ -140,7 +136,6 @@ export default function BookDetails() {
           <div className="w-96 bg-white p-6 rounded-lg">
             <h2 className="text-lg font-semibold mb-4">Borrow Book</h2>
             
-            {/* Display user info */}
             {user && (
               <div className="mb-4">
                 <p><strong>Name:</strong> {user.displayName}</p>
@@ -153,14 +148,15 @@ export default function BookDetails() {
               type="date" 
               value={returnDate} 
               onChange={(e) => setReturnDate(e.target.value)} 
-              className="w-full p-2 border rounded mb-4"
+              className="w-full p-2 border rounded-lg mb-4"
             />
-            <div className="flex justify-end gap-2">
-              <button onClick={() => setShowModal(false)} className="px-4 py-2 bg-gray-300 rounded">
-                Cancel
+
+            <div className="flex gap-2">
+              <button onClick={handleBorrow} className="w-full bg-blue-500 text-white px-4 py-2 rounded-lg">
+                Borrow
               </button>
-              <button onClick={handleBorrow} className="px-4 py-2 bg-blue-500 text-white rounded">
-                Confirm Borrow
+              <button onClick={() => setShowModal(false)} className="w-full bg-gray-400 text-white px-4 py-2 rounded-lg">
+                Cancel
               </button>
             </div>
           </div>

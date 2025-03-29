@@ -59,8 +59,6 @@ const Navbar = () => {
             >
               Terms & Conditions
             </NavLink>
-
-            {/* ইউজার লগইন থাকলে নিচের মেনুগুলো দেখাবে */}
             {user && (
               <>
                 <NavLink
@@ -97,7 +95,6 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Login/Register Buttons or User Profile */}
           <div className="hidden lg:flex gap-4 items-center">
             {user ? (
               <>

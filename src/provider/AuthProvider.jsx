@@ -31,20 +31,20 @@ const AuthProvider = ({ children }) => {
             photoURL: photoUrl,
           })
             .then(() => {
-              setUser(user); // Set user after profile update
-              setLoading(false); // Stop loading
+              setUser(user); 
+              setLoading(false); 
             })
             .catch((error) => {
               console.error("Profile update failed:", error);
               setLoading(false);
-              setUser(null); // If profile update fails, set user to null
+              setUser(null); 
             });
         }
       })
       .catch((error) => {
         console.error("Error creating user:", error);
         setLoading(false);
-        setUser(null); // If user creation fails, set user to null
+        setUser(null); 
       });
   };
 

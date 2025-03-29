@@ -1,14 +1,17 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import Loading from "../components/Loading";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../provider/AuthContext";
 
 export default function AllBooks() {
+  const { user } = useContext(AuthContext);
   const [view, setView] = useState("card");
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sortOrder, setSortOrder] = useState("");
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     fetchAllBooks();
@@ -98,9 +101,6 @@ export default function AllBooks() {
                     alt="Book Cover"
                     src={book.image}
                   />
-                  {/* <p className="rounded-lg bg-blue-100 px-4 py-1 text-center text-sm font-semibold text-blue-600">
-                    {book.category}
-                  </p> */}
                   <p className={`rounded-lg  px-4 py-1
                         ${book.category === 'Science Fiction' && 'bg-blue-100 text-blue-600'}
                         ${book.category === 'Business' && 'bg-blue-100 text-green-600'} 
@@ -111,14 +111,11 @@ export default function AllBooks() {
                   </p>
                   <div className="flex-1">
                     <h3 className="text-center font-bold">{book.name}</h3>
-                    <p className="text-center text-sm italic">
-                      {book.authorName}
-                    </p>
+                    <p className="text-center text-sm italic">{book.authorName}</p>
                   </div>
                   <div className="rounded-lg bg-blue-50 p-4">
                     <p>
-                      <span className="font-semibold">Quantity:</span>{" "}
-                      {book.quantity}
+                      <span className="font-semibold">Quantity:</span> {book.quantity}
                     </p>
                     <div className="flex flex-wrap items-center space-x-3">
                       <p className="font-semibold">Rating:</p>
@@ -133,11 +130,18 @@ export default function AllBooks() {
                       <span className="text-sm">{book?.rating}/5</span>
                     </div>
                   </div>
-                  <Link to={`/update-book/${book._id}`}>
-                    <button className="block w-full rounded-lg bg-blue-500 px-4 py-1.5 text-center font-semibold text-white transition-colors hover:bg-blue-600">
-                        Update
-                    </button>
-                  </Link>
+
+                  <button
+                    onClick={() => {
+                      if (book.email === user.email) {
+                        navigate(`/update-book/${book._id}`);
+                      }
+                    }}
+                    className={`block w-full rounded-lg px-4 py-1.5 text-center font-semibold text-white transition-colors ${book?.email !== user?.email ? "cursor-not-allowed bg-gray-400 opacity-50" : "bg-blue-500 hover:bg-blue-600"}`}
+                    disabled={book.email !== user.email}
+                  >
+                    Update
+                  </button>
                 </div>
               ))}
             </section>
@@ -173,14 +177,14 @@ export default function AllBooks() {
                       <td className="px-4 py-2">{book.name}</td>
                       <td className="px-4 py-2">{book.authorName}</td>
                       <td className="px-4 py-2">
-                      <p className={`rounded-lg  px-4 py-1
-                        ${book.category === 'Science Fiction' && 'bg-blue-100 text-blue-600'}
-                        ${book.category === 'Business' && 'bg-blue-100 text-green-600'} 
-                        ${book.category === 'Personal Development' && 'bg-blue-100 text-red-400'} 
-                        ${book.category === 'History' && 'bg-blue-100 text-yellow-500'} 
-                     text-center text-sm font-semibold`}>
-                    {book.category}
-                  </p>
+                        <p className={`rounded-lg  px-4 py-1
+                          ${book.category === 'Science Fiction' && 'bg-blue-100 text-blue-600'}
+                          ${book.category === 'Business' && 'bg-blue-100 text-green-600'} 
+                          ${book.category === 'Personal Development' && 'bg-blue-100 text-red-400'} 
+                          ${book.category === 'History' && 'bg-blue-100 text-yellow-500'} 
+                        text-center text-sm font-semibold`}>
+                          {book.category}
+                        </p>
                       </td>
                       <td className="px-4 py-2">{book.quantity}</td>
                       <td className="px-4 py-2">
@@ -194,11 +198,17 @@ export default function AllBooks() {
                         <span className="text-sm">{book.rating}/5</span>
                       </td>
                       <td className="px-4 py-2">
-                      <Link to={`/update-book/${book._id}`}>
-    <button className="block rounded-lg bg-blue-500 px-4 py-1.5 text-center font-semibold text-white transition-colors hover:bg-blue-600">
-      Update
-    </button>
-  </Link>
+                        {book.email === user.email ? (
+                          <Link to={`/update-book/${book._id}`}>
+                            <button className="block rounded-lg bg-blue-500 px-4 py-1.5 text-center font-semibold text-white transition-colors hover:bg-blue-600">
+                              Update
+                            </button>
+                          </Link>
+                        ) : (
+                          <button className="block rounded-lg bg-gray-400 px-4 py-1.5 text-center font-semibold text-white cursor-not-allowed">
+                            Update
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}
