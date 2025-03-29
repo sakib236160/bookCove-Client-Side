@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import Loading from "../components/Loading";
+import { Link } from "react-router-dom";
 
 export default function AllBooks() {
   const [view, setView] = useState("card");
@@ -132,9 +133,11 @@ export default function AllBooks() {
                       <span className="text-sm">{book?.rating}/5</span>
                     </div>
                   </div>
-                  <button className="block w-full rounded-lg bg-blue-500 px-4 py-1.5 text-center font-semibold text-white transition-colors hover:bg-blue-600">
-                    Update
-                  </button>
+                  <Link to={`/update-book/${book._id}`}>
+                    <button className="block w-full rounded-lg bg-blue-500 px-4 py-1.5 text-center font-semibold text-white transition-colors hover:bg-blue-600">
+                        Update
+                    </button>
+                  </Link>
                 </div>
               ))}
             </section>
@@ -191,9 +194,11 @@ export default function AllBooks() {
                         <span className="text-sm">{book.rating}/5</span>
                       </td>
                       <td className="px-4 py-2">
-                        <button className="block rounded-lg bg-blue-500 px-4 py-1.5 text-center font-semibold text-white transition-colors hover:bg-blue-600">
-                          Update
-                        </button>
+                      <Link to={`/update-book/${book._id}`}>
+    <button className="block rounded-lg bg-blue-500 px-4 py-1.5 text-center font-semibold text-white transition-colors hover:bg-blue-600">
+      Update
+    </button>
+  </Link>
                       </td>
                     </tr>
                   ))}
