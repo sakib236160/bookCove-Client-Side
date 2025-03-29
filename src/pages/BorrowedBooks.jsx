@@ -68,10 +68,10 @@ export default function BorrowedBooks() {
                 </div>
                 <div className="space-y-1 rounded-lg bg-blue-50 p-4 dark:bg-gray-900">
                   <p className="text-sm">
-                    <span className="font-semibold">Borrowed Date:</span> {book.borrowedDate}
+                    <span className="font-semibold">Borrowed Date:</span> {new Date(book.borrowedDate).toLocaleDateString()}
                   </p>
                   <p className="text-sm">
-                    <span className="font-semibold">Return Date:</span> {book.returnDate}
+                    <span className="font-semibold">Return Date:</span> {new Date(book.returnDate).toLocaleDateString()}
                   </p>
                 </div>
                 <button

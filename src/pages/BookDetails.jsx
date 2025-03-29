@@ -46,7 +46,10 @@ export default function BookDetails() {
       bookId: id, 
       userName: user?.displayName, 
       userEmail: user?.email, 
-      returnDate 
+      returnDate,
+      image: book?.image,      // Added image field
+      name: book?.name,        // Added name field
+      category: book?.category 
     };
 
     try {
