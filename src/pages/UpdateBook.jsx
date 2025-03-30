@@ -26,7 +26,9 @@ export default function UpdateBook() {
   const fetchBookDetails = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/books/${id}`);
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/books/${id}`,{
+        withCredentials: true
+      });
       setBook(data);
     } catch (error) {
       console.error("Error fetching book details:", error);
@@ -45,7 +47,9 @@ export default function UpdateBook() {
     const updatedBook = { ...book };
     setLoading(true);
     try {
-      await axios.put(`${import.meta.env.VITE_API_URL}/books/${id}`, updatedBook);
+      await axios.put(`${import.meta.env.VITE_API_URL}/books/${id}`, updatedBook,{
+        withCredentials:true
+      },);
       toast.success("Book updated successfully");
       navigate("/all-book");
     } catch (error) {

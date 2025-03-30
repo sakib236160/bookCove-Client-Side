@@ -17,7 +17,9 @@ export default function BorrowedBooks() {
   const fetchBorrowedBooks = async () => {
     if (!user) return;
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/borrowed-books?email=${user.email}`);
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/borrowed-books?email=${user.email}`,
+        { withCredentials: true }
+      );
       setBorrowedBooks(data);
     } catch (error) {
       console.error("Error fetching borrowed books:", error);
