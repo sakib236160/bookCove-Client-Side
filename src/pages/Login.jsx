@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import AuthContext from "../provider/AuthContext";
+import axios from "axios";
 
 const Login = () => {
   const { userLogin } = useContext(AuthContext);
@@ -27,8 +28,22 @@ const Login = () => {
     // Log in the user
     userLogin(email, password)
       .then((result) => {
+
+
+        // jwt start
+        const user = {email: email}
+        axios.post(`${import.meta.env.VITE_API_URL}/jwt`, user, {
+          withCredentials: true
+        })
+        .then(res => {
+          console.log(res.data)
+        })
+        // jwt end
+
+
+
         toast.success("Login Successful!");
-        navigate("/"); // Navigate to homepage after successful login
+        // navigate("/"); // Navigate to homepage after successful login
       })
       .catch((error) => {
         console.error("Error:", error);

@@ -20,7 +20,9 @@ export default function AllBooks() {
   const fetchAllBooks = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/books`);
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/books`,{
+        withCredentials: true
+      });
       setBooks(data);
     } catch (error) {
       console.error("Error fetching books:", error);
