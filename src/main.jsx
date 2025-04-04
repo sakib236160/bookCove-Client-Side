@@ -19,6 +19,8 @@ import CategoryBooks from './pages/CategoryBooks';
 import BookDetails from './pages/BookDetails';
 import BorrowedBooks from './pages/BorrowedBooks';
 import UpdateBook from './pages/UpdateBook';
+import ErrorPage from './pages/ErrorPage';
+import { HelmetProvider } from 'react-helmet-async';
 
 
 
@@ -26,7 +28,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App></App>,
-    errorElement: <h2>Error Not Found!!</h2>,
+    errorElement: <ErrorPage></ErrorPage>,
     children:[
       {
         path: "/",
@@ -99,8 +101,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <HelmetProvider>
     <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>
+    </HelmetProvider>
   </StrictMode>,
 )

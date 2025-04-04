@@ -1,8 +1,12 @@
+import { Helmet } from "react-helmet-async";
 
 
 const Terms = () => {
     return (
         <div>
+           <Helmet>
+        <title>Terms & Conditions | BookNest</title>
+      </Helmet>
             <section className="mx-auto w-11/12 max-w-screen-xl py-8">
         <h1 className="mb-8 flex items-center justify-center rounded-lg bg-blue-500 p-4 text-2xl font-semibold text-white">
           Terms & Conditions

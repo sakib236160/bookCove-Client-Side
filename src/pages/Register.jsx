@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import AuthContext from "../provider/AuthContext";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const { setUser, createNewUser, googleLogIn } = useContext(AuthContext);
@@ -56,6 +57,9 @@ const Register = () => {
 
   return (
     <section className="mx-auto w-11/12 max-w-screen-xl py-16">
+      <Helmet>
+        <title>Register | Visa Navigator</title>
+      </Helmet>
       <div className="mx-auto flex max-w-[500px] items-center justify-center">
         <div className="w-full rounded-lg p-8 shadow-lg">
           <h1 className="pb-8 text-center text-3xl font-semibold">Register</h1>

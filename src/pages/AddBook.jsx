@@ -2,10 +2,12 @@ import { useContext, useState } from "react";
 import AuthContext from "../provider/AuthContext";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-
+import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 const AddBook = () => {
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,6 +46,7 @@ const AddBook = () => {
       await axios.post(`${import.meta.env.VITE_API_URL}/add-book`, formData);
       toast.success("Book added successfully!");
       form.reset();
+      navigate("/all-book");
     } catch (error) {
       console.error("Error adding book:", error);
       toast.error("Failed to add book!");
@@ -53,6 +56,9 @@ const AddBook = () => {
 
   return (
     <section className="mx-auto w-11/12 max-w-screen-xl py-8">
+       <Helmet>
+        <title>Add Book | BookCove</title>
+      </Helmet>
       <Toaster position="top-center" reverseOrder={false} />
       <h1 className="mb-8 flex items-center justify-center rounded-lg bg-blue-500 p-4 text-2xl font-semibold text-white">
         Add Book

@@ -3,11 +3,15 @@ import Categories from "../components/Categories";
 import FAQ from "../components/FAQ";
 import LibraryInsights from "../components/LibraryInsights";
 import Testimonials from "../components/Testimonials";
+import { Helmet } from "react-helmet-async";
 
 
 const Home = () => {
     return (
         <div>
+            <Helmet>
+        <title>BookNest</title>
+      </Helmet>
             <Banner></Banner>
             <Categories></Categories>
             <hr className="mx-auto w-1/2 max-w-prose border-blue-500 " />

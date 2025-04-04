@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Loading from "../components/Loading"; 
+import { Helmet } from "react-helmet-async";
 
 export default function CategoryBooks() {
   const { category } = useParams();
@@ -29,6 +30,9 @@ export default function CategoryBooks() {
 
   return (
     <section className="mx-auto w-11/12 max-w-screen-xl py-16">
+       <Helmet>
+        <title>{category} | BookCove</title>
+      </Helmet>
       <h1 className="mb-8 flex items-center justify-center rounded-lg bg-blue-500 p-4 text-2xl font-semibold text-white">
         {category} Books
       </h1>

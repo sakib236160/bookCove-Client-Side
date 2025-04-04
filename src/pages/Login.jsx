@@ -4,6 +4,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import AuthContext from "../provider/AuthContext";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const { userLogin } = useContext(AuthContext);
@@ -43,7 +44,7 @@ const Login = () => {
 
 
         toast.success("Login Successful!");
-        // navigate("/"); // Navigate to homepage after successful login
+        navigate("/"); 
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -54,6 +55,9 @@ const Login = () => {
 
   return (
     <section className="mx-auto w-11/12 max-w-screen-xl py-16">
+      <Helmet>
+        <title>Log In | Visa Navigator</title>
+      </Helmet>
       <div className="mx-auto flex max-w-[500px] items-center justify-center">
         <div className="w-full rounded-lg p-8 shadow-lg">
           <h1 className="pb-8 text-center text-3xl font-semibold">Login</h1>

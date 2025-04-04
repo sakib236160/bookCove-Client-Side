@@ -4,7 +4,7 @@ import ReactStars from "react-rating-stars-component";
 import Loading from "../components/Loading";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../provider/AuthContext";
-
+import { Helmet } from "react-helmet-async";
 export default function AllBooks() {
   const { user } = useContext(AuthContext);
   const [view, setView] = useState("card");
@@ -57,6 +57,9 @@ export default function AllBooks() {
 
   return (
     <section className="mx-auto w-11/12 max-w-screen-xl py-8">
+       <Helmet>
+        <title>All Books | BookCove</title>
+      </Helmet>
       <h1 className="mb-8 flex items-center justify-center rounded-lg bg-blue-500 p-4 text-2xl font-semibold text-white">
         All Books
       </h1>

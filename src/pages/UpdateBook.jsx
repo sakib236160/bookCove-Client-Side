@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Loading from "../components/Loading";
+import { Helmet } from "react-helmet-async";
 
 export default function UpdateBook() {
   const { id } = useParams();
@@ -62,6 +63,9 @@ export default function UpdateBook() {
 
   return (
     <>
+    <Helmet>
+        <title>Update Book | BookNest</title>
+      </Helmet>
       {loading ? (
         <Loading />
       ) : (

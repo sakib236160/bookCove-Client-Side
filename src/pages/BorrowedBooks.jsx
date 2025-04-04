@@ -3,7 +3,7 @@ import axios from "axios";
 import AuthContext from "../provider/AuthContext";
 import Loading from "../components/Loading";
 import toast from "react-hot-toast";
-
+import { Helmet } from "react-helmet-async";
 
 export default function BorrowedBooks() {
   const { user } = useContext(AuthContext);
@@ -41,7 +41,9 @@ export default function BorrowedBooks() {
 
   return (
     <>
-      
+       <Helmet>
+        <title>Borrowed Books | BookCove</title>
+      </Helmet>
       <section className="mx-auto w-11/12 max-w-screen-xl py-8">
         <h1 className="mb-8 flex items-center justify-center rounded-lg bg-blue-500 p-4 text-2xl font-semibold text-white">
           Borrowed Books
@@ -62,9 +64,14 @@ export default function BorrowedBooks() {
                   alt={book.name}
                   className="aspect-video w-full rounded-lg object-contain"
                 />
-                <p className="rounded-lg bg-blue-100 px-4 py-1 text-center text-sm font-semibold text-blue-600">
-                  {book.category}
-                </p>
+                <p className={`rounded-lg  px-4 py-1
+                        ${book.category === 'Science Fiction' && 'bg-blue-100 text-blue-600'}
+                        ${book.category === 'Business' && 'bg-blue-100 text-green-600'} 
+                        ${book.category === 'Personal Development' && 'bg-blue-100 text-red-400'} 
+                        ${book.category === 'History' && 'bg-blue-100 text-yellow-500'} 
+                     text-center text-sm font-semibold`}>
+                    {book.category}
+                  </p>
                 <div className="flex-1">
                   <h3 className="text-center font-bold">{book?.name}</h3>
                 </div>
