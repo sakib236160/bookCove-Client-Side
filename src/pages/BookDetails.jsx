@@ -19,7 +19,7 @@ export default function BookDetails() {
 
   useEffect(() => {
     fetchBookDetails();
-  }, [id]);
+  }, [id, user]);
 
   useEffect(() => {
     if (showModal) {
@@ -33,7 +33,13 @@ export default function BookDetails() {
     try {
       const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/books/${id}`);
       setBook(data);
-      setIsBorrowed(data.isBorrowed);
+      if (user) {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/borrowed-books?email=${user.email}`, {
+          withCredentials: true,
+        });
+        const alreadyBorrowed = res.data.some((b) => b.bookId === id);
+        setIsBorrowed(alreadyBorrowed);
+      }
     } catch (error) {
       console.error("Error fetching book details:", error);
     }
@@ -43,14 +49,14 @@ export default function BookDetails() {
   const handleBorrow = async () => {
     if (!returnDate) return toast.error("Please select a return date!");
 
-    const borrowData = { 
-      bookId: id, 
-      userName: user?.displayName, 
-      userEmail: user?.email, 
+    const borrowData = {
+      bookId: id,
+      userName: user?.displayName,
+      userEmail: user?.email,
       returnDate,
-      image: book?.image,      
-      name: book?.name,        
-      category: book?.category 
+      image: book?.image,
+      name: book?.name,
+      category: book?.category,
     };
 
     try {
@@ -66,9 +72,10 @@ export default function BookDetails() {
 
   return (
     <section className="mx-auto w-11/12 max-w-screen-xl py-8">
-       <Helmet>
+      <Helmet>
         <title>Book Details | BookCove</title>
       </Helmet>
+
       <h1 className="mb-8 flex items-center justify-center rounded-lg border bg-blue-500 p-4 text-2xl font-semibold text-white">
         Book Details
       </h1>
@@ -78,9 +85,9 @@ export default function BookDetails() {
       ) : (
         <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
           <div className="flex h-full w-full items-center justify-center rounded-lg bg-blue-50 p-4 dark:bg-gray-900">
-            <img 
-              src={book?.image} 
-              alt={book?.name} 
+            <img
+              src={book?.image}
+              alt={book?.name}
               className="w-full max-w-xs rounded-lg object-cover"
             />
           </div>
@@ -88,27 +95,29 @@ export default function BookDetails() {
           <div className="sm:col-span-1 md:col-span-2">
             <h2 className="text-2xl font-semibold">{book?.name}</h2>
             <p className="mb-4">{book?.authorName}</p>
+
             <p className={`mb-4 inline-block rounded-lg px-4 py-1
-                        ${book.category === 'Science Fiction' && 'bg-blue-100 text-blue-600'}
-                        ${book.category === 'Business' && 'bg-blue-100 text-green-600'} 
-                        ${book.category === 'Personal Development' && 'bg-blue-100 text-red-400'} 
-                        ${book.category === 'History' && 'bg-blue-100 text-yellow-500'} 
-                     text-center text-sm font-semibold`}>
-                    {book?.category}
-                  </p>
+                ${book.category === 'Science Fiction' && 'bg-blue-100 text-blue-600'}
+                ${book.category === 'Business' && 'bg-blue-100 text-green-600'}
+                ${book.category === 'Personal Development' && 'bg-blue-100 text-red-400'}
+                ${book.category === 'History' && 'bg-blue-100 text-yellow-500'}
+                text-center text-sm font-semibold`}>
+              {book?.category}
+            </p>
+
             <p className="mb-2">
               <span className="font-semibold">Quantity:</span> {book?.quantity}
             </p>
 
             <div className="mb-3 flex items-center gap-4">
               <p className="font-semibold">Rating:</p>
-              <ReactStars 
-                key={book?._id} 
-                count={5} 
-                value={book?.rating} 
-                isHalf={true} 
-                size={24} 
-                edit={false} 
+              <ReactStars
+                key={book?._id}
+                count={5}
+                value={book?.rating}
+                isHalf={true}
+                size={24}
+                edit={false}
               />
               <span className="text-sm">{book?.rating}/5</span>
             </div>
@@ -143,10 +152,10 @@ export default function BookDetails() {
       )}
 
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center ">
+        <div className="fixed inset-0 flex items-center justify-center  bg-opacity-70 backdrop-blur-sm z-50">
           <div className="w-96 bg-white p-6 rounded-lg">
             <h2 className="text-lg font-semibold mb-4">Borrow Book</h2>
-            
+
             {user && (
               <div className="mb-4">
                 <p><strong>Name:</strong> {user.displayName}</p>
@@ -155,10 +164,10 @@ export default function BookDetails() {
             )}
 
             <label className="block mb-2">Select Return Date:</label>
-            <input 
-              type="date" 
-              value={returnDate} 
-              onChange={(e) => setReturnDate(e.target.value)} 
+            <input
+              type="date"
+              value={returnDate}
+              onChange={(e) => setReturnDate(e.target.value)}
               className="w-full p-2 border rounded-lg mb-4"
             />
 

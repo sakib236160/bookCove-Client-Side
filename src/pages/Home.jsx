@@ -1,5 +1,6 @@
 import Banner from "../components/Banner";
 import Categories from "../components/Categories";
+import ContactUs from "../components/ContactUs";
 import FAQ from "../components/FAQ";
 import LibraryInsights from "../components/LibraryInsights";
 import Testimonials from "../components/Testimonials";
@@ -20,6 +21,8 @@ const Home = () => {
             <Testimonials></Testimonials>
             <hr className="mx-auto w-1/2 max-w-prose border-blue-500 " />
             <FAQ></FAQ>
+            <hr className="mx-auto w-1/2 max-w-prose border-blue-500 " />
+            <ContactUs></ContactUs>
         </div>
     );
 };

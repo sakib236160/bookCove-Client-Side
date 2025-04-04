@@ -7,7 +7,7 @@ import axios from "axios";
 import { Helmet } from "react-helmet-async";
 
 const Login = () => {
-  const { userLogin } = useContext(AuthContext);
+  const { userLogin, googleLogIn, setUser } = useContext(AuthContext);
   const [error, setError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -21,7 +21,9 @@ const Login = () => {
     // Password validation regex (same as in Register page)
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
     if (!passwordRegex.test(password)) {
-      setError("Invalid Password! Password must have at least 6 characters with both uppercase and lowercase letters.");
+      setError(
+        "Invalid Password! Password must have at least 6 characters with both uppercase and lowercase letters."
+      );
       toast.error("Invalid Password! Follow the rules.");
       return;
     }
@@ -29,25 +31,47 @@ const Login = () => {
     // Log in the user
     userLogin(email, password)
       .then((result) => {
-
-
-        // jwt start
-        const user = {email: email}
-        axios.post(`${import.meta.env.VITE_API_URL}/jwt`, user, {
-          withCredentials: true
-        })
-        .then(res => {
-          console.log(res.data)
-        })
-        // jwt end
-
-
+        const user = { email: email };
+        // JWT token request
+        axios
+          .post(`${import.meta.env.VITE_API_URL}/jwt`, user, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res.data);
+          });
 
         toast.success("Login Successful!");
-        navigate("/"); 
+        navigate("/");
       })
       .catch((error) => {
         console.error("Error:", error);
+        setError(error.message);
+        toast.error(`${error.message}`);
+      });
+  };
+
+  // ✅ Google Login Handler - moved outside
+  const handleGoogleLogIn = () => {
+    googleLogIn()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+
+        // JWT for Google login
+        const loggedUser = { email: user.email };
+        axios
+          .post(`${import.meta.env.VITE_API_URL}/jwt`, loggedUser, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res.data);
+            toast.success("Login Successful!");
+            navigate("/");
+          });
+      })
+      .catch((error) => {
+        console.error("Google Login Error:", error);
         setError(error.message);
         toast.error(`${error.message}`);
       });
@@ -109,10 +133,19 @@ const Login = () => {
               Login
             </button>
           </form>
+
           <div className="mt-4 flex items-center justify-center">
             <hr className="h-1 w-full" /> <span className="px-4">or</span>
             <hr className="h-1 w-full" />
           </div>
+
+          <button
+            onClick={handleGoogleLogIn}
+            className="mt-4 w-full rounded-lg border border-indigo-500 p-2 font-bold text-indigo-500"
+          >
+            Continue with Google
+          </button>
+
           <div className="mt-4 text-center">
             Don't have an account?{" "}
             <Link to="/register" className="underline">
