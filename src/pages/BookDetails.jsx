@@ -22,11 +22,7 @@ export default function BookDetails() {
   }, [id, user]);
 
   useEffect(() => {
-    if (showModal) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+    document.body.style.overflow = showModal ? "hidden" : "auto";
   }, [showModal]);
 
   const fetchBookDetails = async () => {
@@ -49,17 +45,26 @@ export default function BookDetails() {
   const handleBorrow = async () => {
     if (!returnDate) return toast.error("Please select a return date!");
 
-    const borrowData = {
-      bookId: id,
-      userName: user?.displayName,
-      userEmail: user?.email,
-      returnDate,
-      image: book?.image,
-      name: book?.name,
-      category: book?.category,
-    };
-
     try {
+      // Check if the user already borrowed 3 books
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/borrowed-books?email=${user.email}`, {
+        withCredentials: true,
+      });
+
+      if (res.data.length >= 3) {
+        return toast.error("You cannot borrow more than 3 books!");
+      }
+
+      const borrowData = {
+        bookId: id,
+        userName: user?.displayName,
+        userEmail: user?.email,
+        returnDate,
+        image: book?.image,
+        name: book?.name,
+        category: book?.category,
+      };
+
       const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/borrow`, borrowData);
       toast.success(data.message);
       setShowModal(false);
@@ -152,7 +157,7 @@ export default function BookDetails() {
       )}
 
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center  bg-opacity-70 backdrop-blur-sm z-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-opacity-70 backdrop-blur-sm z-50">
           <div className="w-96 bg-white p-6 rounded-lg">
             <h2 className="text-lg font-semibold mb-4">Borrow Book</h2>
 

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
-import { Helmet } from "react-helmet-async";
+// import { Helmet } from "react-helmet-async";
 import { FaBookmark } from "react-icons/fa";
 
 const fadeIn = {
@@ -15,9 +15,9 @@ const ContactUs = () => {
 
   return (
     <section className="mx-auto w-11/12 max-w-screen-xl py-16">
-      <Helmet>
+      {/* <Helmet>
         <title>Contact Us | Visa Navigator</title>
-      </Helmet>
+      </Helmet> */}
 
       {/* Contact Title */}
       <motion.div

@@ -11,7 +11,7 @@ const Home = () => {
     return (
         <div>
             <Helmet>
-        <title>BookNest</title>
+        <title>BookCove</title>
       </Helmet>
             <Banner></Banner>
             <Categories></Categories>
