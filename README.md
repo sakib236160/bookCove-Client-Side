@@ -1,4 +1,4 @@
-# BookNest
+# BookCove
 
 BookCove is a web application designed to provide users with a seamless experience for browsing, borrowing, and managing books online.
 
@@ -69,7 +69,7 @@ Here is a step-by-step guide on how to run the project locally:
    ```
 
 3. **Set up environment variables:**
-   Create a `.env` file in the root directory and add the necessary environment variables as referenced in the code.
+   Create a `.env.local` file in the root directory and add the necessary environment variables as referenced in the code.
 4. **Run the development server:**
    ```bash
    npm run dev

@@ -64,7 +64,7 @@ export default function UpdateBook() {
   return (
     <>
     <Helmet>
-        <title>Update Book | BookNest</title>
+        <title>Update Book | BookCove</title>
       </Helmet>
       {loading ? (
         <Loading />
